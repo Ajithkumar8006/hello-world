@@ -82,3 +82,5 @@ while true; do
 
   sleep 1
 done
+---
+https://flask-postgres-service-741169614600.us-central1.run.app
