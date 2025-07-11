@@ -58,3 +58,27 @@ flask
 psycopg2-binary
 
 gcloud builds submit --tag us-central1-docker.pkg.dev/apigee-test-0002-demo/splunk-test/my-splunk-logger/flask-postgres-app:v2
+
+------
+
+#!/bin/bash
+
+INSTANCE_NAME="test-sql-instance"
+PROJECT_ID="apigee-test-0002-demo"
+
+while true; do
+  # 1. Check app connectivity
+  RESPONSE=$(curl -i -s https://flask-postgres-service-741169614600.us-central1.run.app)
+  STATUS=$(echo "$RESPONSE" | head -n 1)
+  MESSAGE=$(echo "$RESPONSE" | tail -n 1 | tr -d '\n')
+
+  # 2. Get Cloud SQL primary zone
+  PRIMARY_ZONE=$(gcloud sql instances describe "$INSTANCE_NAME" \
+    --project="$PROJECT_ID" \
+    --format="value(gceZone)")
+
+  # 3. Print formatted output
+  echo "$(date '+%Y-%m-%d %H:%M:%S') | Primary Zone: ${PRIMARY_ZONE} - ${MESSAGE}${STATUS}"
+
+  sleep 1
+done
