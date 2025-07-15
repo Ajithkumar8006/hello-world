@@ -1,0 +1,36 @@
+name: Test and Login
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js (example)
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Login to external service (example)
+        env:
+          LOGIN_USERNAME: ${{ secrets.LOGIN_USERNAME }}
+          LOGIN_PASSWORD: ${{ secrets.LOGIN_PASSWORD }}
+        run: |
+          echo "Logging in..."
+          curl -X POST https://example.com/api/login \
+            -H "Content-Type: application/json" \
+            -d '{"username":"'"$LOGIN_USERNAME"'","password":"'"$LOGIN_PASSWORD"'"}'
+
+      - name: Run tests
+        run: npm test
