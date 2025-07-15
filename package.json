@@ -1,1 +1,11 @@
-npm init -y
+{
+  "name": "hello-world",
+  "version": "1.0.0",
+  "description": "A simple Node.js app with GitHub Actions",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node test/index.test.js"
+  },
+  "author": "",
+  "license": "MIT"
+}
