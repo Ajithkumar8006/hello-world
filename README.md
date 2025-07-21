@@ -198,3 +198,11 @@ Waiting for instance to become RUNNABLE...
 Running: gcloud sql instances describe test-sql-instance --project=apigee-test-0002-demo --format=json
 Instance state: RUNNABLE
 Restore completed. Time taken: 614.12 seconds
+
+-----
+
+backup was created using the gcloud CLI to ensure a consistent snapshot of the database.
+The backup was restored into the same instance (test-sql-instance), simulating a full recovery scenario. This overwrites the existing data in the instance.
+
+Result:
+Restore completed successfully. The instance returned to RUNNABLE state, indicating the service is healthy and available.
