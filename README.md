@@ -179,3 +179,22 @@ ENTRYPOINT ["dotnet", "HaFailoverTestApp.dll"]
 
 **/bin/
 **/obj/
+
+----
+(base) ajithkumar@MacBook-Pro sql-db-tf-backup % python3 cloudsql_backup_restore.py
+
+Starting backup for instance: test-sql-instance at location: us-central1
+Running: gcloud sql backups create --instance=test-sql-instance --location=us-central1 --project=apigee-test-0002-demo
+Running: gcloud sql backups list --instance=test-sql-instance --project=apigee-test-0002-demo --format=json
+Detected backup ID: 1753108921288
+Waiting for backup to complete...
+Running: gcloud sql backups list --instance=test-sql-instance --project=apigee-test-0002-demo --filter='id=1753108921288' --format=json
+Backup status: SUCCESSFUL
+Backup completed. Time taken: 213.92 seconds
+
+Restoring backup 1753108921288 into instance: test-sql-instance
+Running: gcloud sql instances restore-backup test-sql-instance --backup-id=1753108921288 --backup-instance=test-sql-instance --project=apigee-test-0002-demo
+Waiting for instance to become RUNNABLE...
+Running: gcloud sql instances describe test-sql-instance --project=apigee-test-0002-demo --format=json
+Instance state: RUNNABLE
+Restore completed. Time taken: 614.12 seconds
